@@ -1,0 +1,52 @@
+---
+title: "Tablas de Referencia"
+description: "Información de referencia para usar en las peticiones a la API"
+---
+
+## IVA Rates
+
+| ID  | Detalle               | Código |
+| --- | --------------------- | ------ |
+| 1   | 0%                    | 0      |
+| 2   | 12%                   | 2      |
+| 3   | 14%                   | 3      |
+| 4   | No Objeto de Impuesto | 6      |
+| 5   | Exento de IVA         | 7      |
+| 6   | 15%                   | 4      |
+
+## Tipos de Identificación
+
+| ID  | Detalle                     |
+| --- | --------------------------- |
+| 04  | RUC                         |
+| 05  | Cédula                      |
+| 06  | Pasaporte                   |
+| 07  | Venta a consumidor final    |
+| 08  | Identificación del exterior |
+| 09  | Placa                       |
+
+## Métodos de Pago
+
+| ID  | Detalle                                      |
+| --- | -------------------------------------------- |
+| 1   | SIN UTILIZACIÓN DEL SISTEMA FINANCIERO       |
+| 2   | COMPENSACIÓN DE DEUDAS                       |
+| 3   | TARJETA DE DÉBITO                            |
+| 4   | DINERO ELECTRÓNICO                           |
+| 5   | TARJETA PREPAGO                              |
+| 6   | TARJETA DE CRÉDITO                           |
+| 7   | OTROS CON UTILIZACIÓN DEL SISTEMA FINANCIERO |
+| 8   | ENDOSO DE TÍTULOS                            |
+
+## Errores Comunes
+
+<AccordionGroup>
+  <Accordion title="Código 404 al solicitar token">
+    Verifica que los datos de `client_id` y `client_secret` sean correctos.
+  </Accordion>
+
+  <Accordion title="Código 404 al enviar factura">
+    - Asegúrate de que el token de autorización no haya expirado. - Comprueba
+    que el `unique_id` sea válido.
+  </Accordion>
+</AccordionGroup>{" "}

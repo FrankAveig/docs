@@ -41,5 +41,6 @@
   ],
   "footerSocials": {
     "website": "https://facturaya.app"
-  }
+  },
+  "openapi": "/api-reference/openapi.json"
 }

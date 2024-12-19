@@ -1,0 +1,53 @@
+---
+title: "Autenticación"
+description: "Aprende cómo autenticarte con la API de FacturaYa"
+---
+
+## Obtener Token
+
+Endpoint para obtener el token de autenticación necesario para realizar peticiones a la API.
+
+### Endpoint
+
+<CodeGroup>```bash POST {endpoint}/v1/auth/token ```</CodeGroup>
+
+### Parámetros del Body
+
+<ParamField body="client_id" type="integer" required>
+  Código proporcionado por FacturaYa
+</ParamField>
+
+<ParamField body="client_secret" type="string" required>
+  Clave proporcionada por FacturaYa
+</ParamField>
+
+### Ejemplo de Request
+
+```json
+{
+  "client_id": 12345,
+  "client_secret": "abcde12345"
+}
+```
+
+### Respuesta Exitosa
+
+```json
+{
+  "estado": 200,
+  "noticias": {
+    "titulo": "Inicio de sesión",
+    "mensaje": "Bienvenido, nos da gusto tenerte de vuelta."
+  },
+  "data": {
+    "token_type": "Bearer",
+    "expires_in": 1296000,
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjEzMDY2..."
+  }
+}
+```
+
+<Note>
+  El token expira después de 15 días. Asegúrate de solicitar uno nuevo antes de
+  que expire.
+</Note>{" "}

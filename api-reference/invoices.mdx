@@ -1,0 +1,77 @@
+---
+title: "Facturas"
+description: "Endpoints para la gestión de facturas electrónicas"
+---
+
+## Crear Factura
+
+Endpoint para crear una nueva factura electrónica.
+
+### Endpoint
+
+<CodeGroup>```bash POST {endpoint}/v1/m2m/documents/invoice ```</CodeGroup>
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {access_token}
+</ParamField>
+
+### Parámetros del Body
+
+<ParamField body="invoice" type="object" required>
+  Objeto con la información de la factura
+</ParamField>
+
+<ParamField body="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+### Ejemplo de Request
+
+```json
+{
+  "invoice": {
+    "additional_information_detail": [],
+    "products": [
+      {
+        "code": "1",
+        "name": "Servicios Profesionales",
+        "subtotal": "1",
+        "quantity": "1",
+        "iva_rate_id": "2",
+        "tax_percentage": "12",
+        "tax_value": "0.120000",
+        "hasAdditionalInformation": false,
+        "hasTaxIncluded": false,
+        "id": ""
+      }
+    ],
+    "customer": {
+      "address": "Alborada 9na etapa",
+      "email": "prueba@gmail.com",
+      "identification": "1312092669",
+      "identification_type": "05",
+      "name": "Antonio Oramas",
+      "phone": "0988359052"
+    },
+    "date": "2021-12-14",
+    "sequential": "001002000000002",
+    "payment_method": "1"
+  },
+  "unique_id": "<Unique ID del Cliente>"
+}
+```
+
+### Respuesta Exitosa
+
+```json
+{
+  "estado": 200,
+  "noticias": {
+    "titulo": "Factura enviada al SRI",
+    "mensaje": "Revisa el progreso de tu documento"
+  },
+  "data": {}
+}
+```
