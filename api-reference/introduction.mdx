@@ -1,33 +1,48 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API Reference"
+description: "Documentación completa de la API de FacturaYa"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Introducción
 
-## Welcome
+La API de FacturaYa te permite integrar nuestro sistema de facturación electrónica en tu aplicación. Con nuestra API podrás:
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+- Generar facturas electrónicas
+- Consultar el estado de los documentos
+- Gestionar clientes y productos
+- Y más...
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## Autenticación
 
-## Authentication
+Todas las peticiones a la API requieren autenticación mediante un token Bearer. Para obtener el token, consulta la sección de [Autenticación](/api-reference/authentication).
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## Endpoints Disponibles
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+<CardGroup>
+  <Card title="Autenticación" icon="key" href="/api-reference/authentication">
+    Obtén tu token de acceso
+  </Card>
+  <Card title="Facturas" icon="receipt" href="/api-reference/invoices">
+    Crea y gestiona facturas electrónicas
+  </Card>
+  <Card
+    title="Tablas de Referencia"
+    icon="table"
+    href="/api-reference/reference-tables"
+  >
+    Consulta los códigos y valores de referencia
+  </Card>
+</CardGroup>
+
+## Base URL
+
+Todas las URLs en esta documentación utilizan la siguiente base URL:
+
+```bash
+https://api.facturaya.app
 ```
+
+<Note>
+  Asegúrate de incluir el token de autenticación en todas las peticiones excepto
+  en la solicitud del token.
+</Note>
