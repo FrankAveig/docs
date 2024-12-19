@@ -1,71 +1,183 @@
 ---
 title: "Facturas"
 description: "Endpoints para la gestión de facturas electrónicas"
+api: "POST {endpoint}/v1/m2m/documents/invoice"
 ---
 
 ## Crear Factura
 
-Endpoint para crear una nueva factura electrónica.
+Endpoint para crear una nueva factura electrónica en el sistema.
 
-### Endpoint
+### Playground
 
-<CodeGroup>```bash POST {endpoint}/v1/m2m/documents/invoice ```</CodeGroup>
+<RequestExample>
+  ```bash cURL
+  curl -X POST '{endpoint}/v1/m2m/documents/invoice' \
+    -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer <tu_token>' \
+    -d '{
+      "invoice": {
+        "products": [
+          {
+            "code": "1",
+            "name": "Servicios Profesionales",
+            "subtotal": "1",
+            "quantity": "1",
+            "iva_rate_id": "2",
+            "tax_percentage": "12",
+            "tax_value": "0.120000",
+            "hasAdditionalInformation": false,
+            "hasTaxIncluded": false
+          }
+        ],
+        "customer": {
+          "address": "Alborada 9na etapa",
+          "email": "prueba@gmail.com",
+          "identification": "1312092669",
+          "identification_type": "05",
+          "name": "Antonio Oramas",
+          "phone": "0988359052"
+        },
+        "date": "2021-12-14",
+        "sequential": "001002000000002",
+        "payment_method": "1"
+      },
+      "unique_id": "cliente-123"
+    }'
+  ```
+
+```javascript Node.js
+const response = await fetch("{endpoint}/v1/m2m/documents/invoice", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer <tu_token>",
+  },
+  body: JSON.stringify({
+    invoice: {
+      products: [
+        {
+          code: "1",
+          name: "Servicios Profesionales",
+          subtotal: "1",
+          quantity: "1",
+          iva_rate_id: "2",
+          tax_percentage: "12",
+          tax_value: "0.120000",
+          hasAdditionalInformation: false,
+          hasTaxIncluded: false,
+        },
+      ],
+      customer: {
+        address: "Alborada 9na etapa",
+        email: "prueba@gmail.com",
+        identification: "1312092669",
+        identification_type: "05",
+        name: "Antonio Oramas",
+        phone: "0988359052",
+      },
+      date: "2021-12-14",
+      sequential: "001002000000002",
+      payment_method: "1",
+    },
+    unique_id: "cliente-123",
+  }),
+});
+```
+
+```python Python
+import requests
+
+response = requests.post(
+  '{endpoint}/v1/m2m/documents/invoice',
+  headers={
+    'Authorization': 'Bearer <tu_token>'
+  },
+  json={
+    'invoice': {
+      'products': [
+        {
+          'code': '1',
+          'name': 'Servicios Profesionales',
+          'subtotal': '1',
+          'quantity': '1',
+          'iva_rate_id': '2',
+          'tax_percentage': '12',
+          'tax_value': '0.120000',
+          'hasAdditionalInformation': False,
+          'hasTaxIncluded': False
+        }
+      ],
+      'customer': {
+        'address': 'Alborada 9na etapa',
+        'email': 'prueba@gmail.com',
+        'identification': '1312092669',
+        'identification_type': '05',
+        'name': 'Antonio Oramas',
+        'phone': '0988359052'
+      },
+      'date': '2021-12-14',
+      'sequential': '001002000000002',
+      'payment_method': '1'
+    },
+    'unique_id': 'cliente-123'
+  }
+)
+```
+
+</RequestExample>
 
 ### Headers Requeridos
 
 <ParamField header="Authorization" type="string" required>
-  Bearer {access_token}
+  Bearer {token}
 </ParamField>
 
 ### Parámetros del Body
 
 <ParamField body="invoice" type="object" required>
-  Objeto con la información de la factura
+  <Expandable title="properties">
+    <ParamField body="products" type="array" required>
+      Array de productos en la factura
+    </ParamField>
+    <ParamField body="customer" type="object" required>
+      Información del cliente
+    </ParamField>
+    <ParamField body="date" type="string" required>
+      Fecha de la factura (YYYY-MM-DD)
+    </ParamField>
+    <ParamField body="sequential" type="string" required>
+      Número secuencial de la factura
+    </ParamField>
+    <ParamField body="payment_method" type="string" required>
+      Método de pago (ver tabla de referencia)
+    </ParamField>
+  </Expandable>
 </ParamField>
 
 <ParamField body="unique_id" type="string" required>
   Identificador único del cliente
 </ParamField>
 
-### Ejemplo de Request
+### Respuesta
 
-```json
-{
-  "invoice": {
-    "additional_information_detail": [],
-    "products": [
-      {
-        "code": "1",
-        "name": "Servicios Profesionales",
-        "subtotal": "1",
-        "quantity": "1",
-        "iva_rate_id": "2",
-        "tax_percentage": "12",
-        "tax_value": "0.120000",
-        "hasAdditionalInformation": false,
-        "hasTaxIncluded": false,
-        "id": ""
-      }
-    ],
-    "customer": {
-      "address": "Alborada 9na etapa",
-      "email": "prueba@gmail.com",
-      "identification": "1312092669",
-      "identification_type": "05",
-      "name": "Antonio Oramas",
-      "phone": "0988359052"
-    },
-    "date": "2021-12-14",
-    "sequential": "001002000000002",
-    "payment_method": "1"
-  },
-  "unique_id": "<Unique ID del Cliente>"
-}
-```
+<ResponseField name="estado" type="integer">
+  Código de estado de la respuesta
+</ResponseField>
 
-### Respuesta Exitosa
+<ResponseField name="noticias" type="object">
+  <Expandable title="properties">
+    <ResponseField name="titulo" type="string">
+      Título del mensaje de respuesta
+    </ResponseField>
+    <ResponseField name="mensaje" type="string">
+      Mensaje descriptivo de la respuesta
+    </ResponseField>
+  </Expandable>
+</ResponseField>
 
-```json
+<ResponseExample>
+```json Response
 {
   "estado": 200,
   "noticias": {
@@ -75,3 +187,10 @@ Endpoint para crear una nueva factura electrónica.
   "data": {}
 }
 ```
+</ResponseExample>
+
+<Note>
+  Asegúrate de consultar las [tablas de
+  referencia](/api-reference/reference-tables) para los valores correctos de
+  `iva_rate_id`, `identification_type` y `payment_method`.
+</Note>

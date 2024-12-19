@@ -10,7 +10,8 @@
       "url": "{endpoint}",
       "variables": {
         "endpoint": {
-          "default": "https://api.facturaya.app"
+          "default": "https://api.facturaya.app",
+          "description": "URL base de la API"
         }
       }
     }
@@ -18,8 +19,10 @@
   "paths": {
     "/v1/auth/token": {
       "post": {
+        "tags": ["Autenticación"],
         "summary": "Obtener Token",
         "description": "Obtiene un token de autenticación para realizar peticiones a la API",
+        "operationId": "getToken",
         "requestBody": {
           "required": true,
           "content": {
@@ -29,11 +32,13 @@
                 "properties": {
                   "client_id": {
                     "type": "integer",
-                    "description": "Código proporcionado por FacturaYa"
+                    "description": "Código proporcionado por FacturaYa",
+                    "example": 12345
                   },
                   "client_secret": {
                     "type": "string",
-                    "description": "Clave proporcionada por FacturaYa"
+                    "description": "Clave proporcionada por FacturaYa",
+                    "example": "abcde12345"
                   }
                 },
                 "required": ["client_id", "client_secret"]
@@ -50,22 +55,30 @@
                   "type": "object",
                   "properties": {
                     "estado": {
-                      "type": "integer"
+                      "type": "integer",
+                      "example": 200
                     },
                     "noticias": {
-                      "type": "object"
+                      "type": "object",
+                      "example": {
+                        "titulo": "Inicio de sesión",
+                        "mensaje": "Bienvenido, nos da gusto tenerte de vuelta."
+                      }
                     },
                     "data": {
                       "type": "object",
                       "properties": {
                         "token_type": {
-                          "type": "string"
+                          "type": "string",
+                          "example": "Bearer"
                         },
                         "expires_in": {
-                          "type": "integer"
+                          "type": "integer",
+                          "example": 1296000
                         },
                         "access_token": {
-                          "type": "string"
+                          "type": "string",
+                          "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1..."
                         }
                       }
                     }

@@ -1,0 +1,111 @@
+---
+title: "Facturación en Ecuador"
+description: "Información importante sobre la facturación electrónica en Ecuador"
+---
+
+## Requisitos Previos
+
+Para emitir facturas electrónicas en Ecuador, necesitas:
+
+1. RUC activo
+2. Firma electrónica vigente
+3. Conexión a Internet
+4. Software de facturación autorizado por el SRI
+
+## Proceso de Autorización
+
+<AccordionGroup>
+  <Accordion icon="check" title="Emisión y Validación">
+    1. El emisor genera el comprobante electrónico (XML)
+    2. Se envía al SRI para validación
+    3. El SRI valida la estructura y datos del comprobante
+    4. Si es correcto, el SRI autoriza y devuelve el número de autorización
+  </Accordion>
+
+  <Accordion icon="clock" title="Tiempos de Respuesta">
+    - **Modo Pruebas**: Respuesta inmediata
+    - **Modo Producción**: Entre 3 a 5 segundos
+    - **Contingencia**: Hasta 24 horas en casos excepcionales
+  </Accordion>
+</AccordionGroup>
+
+## Errores Comunes y Soluciones
+
+### Errores de Validación
+
+<ResponseField name="ERROR 43" type="error">
+  **RUC del emisor no existe** Verifica que el RUC esté activo y sea válido en
+  el SRI.
+</ResponseField>
+
+<ResponseField name="ERROR 45" type="error">
+  **Secuencial registrado** El número de secuencial ya fue utilizado. Debes usar
+  un nuevo secuencial.
+</ResponseField>
+
+<ResponseField name="ERROR 50" type="error">
+  **Fecha de emisión no está en el rango permitido** La fecha debe estar dentro
+  de los últimos 5 días o hasta 5 días futuros.
+</ResponseField>
+
+<ResponseField name="ERROR 52" type="error">
+  **Clave de acceso registrada** La clave de acceso ya existe. Genera una nueva
+  clave de acceso.
+</ResponseField>
+
+### ¿Qué hacer si la factura es rechazada?
+
+1. **Revisa el mensaje de error**
+
+   - El SRI proporciona un mensaje específico del problema
+   - Cada error tiene un código único para identificación
+
+2. **Corrige la información**
+
+   - Verifica los datos del cliente
+   - Confirma los valores y cálculos
+   - Asegúrate que la estructura XML sea correcta
+
+3. **Reenvía el documento**
+   - Genera un nuevo secuencial
+   - Crea una nueva clave de acceso
+   - Envía nuevamente al SRI
+
+<Note>
+  Si una factura es rechazada, no puedes usar el mismo secuencial. Debes generar
+  uno nuevo.
+</Note>
+
+## Plazos y Consideraciones
+
+<CardGroup>
+  <Card title="Plazo de Autorización" icon="clock">
+    Las facturas deben ser autorizadas dentro de las 24 horas siguientes a su
+    emisión
+  </Card>
+  <Card title="Almacenamiento" icon="hard-drive">
+    Los documentos electrónicos deben almacenarse por 7 años
+  </Card>
+  <Card title="Contingencia" icon="triangle-exclamation">
+    En caso de caída del sistema, hay un proceso de contingencia disponible
+  </Card>
+</CardGroup>
+
+## Ambiente de Pruebas
+
+Antes de pasar a producción, es recomendable realizar pruebas:
+
+1. El SRI proporciona un ambiente de pruebas
+2. Puedes emitir facturas de prueba sin valor tributario
+3. Verifica la estructura y validación de los documentos
+4. Prueba diferentes escenarios y tipos de error
+
+<Warning>
+  Las facturas emitidas en el ambiente de pruebas no tienen validez tributaria y
+  no deben ser enviadas a clientes reales.
+</Warning>
+
+## Enlaces Útiles
+
+- [Consulta de Validez de Comprobantes (SRI)](https://srienlinea.sri.gob.ec/facturacion-internet/consultas/publico/consulta-validez-documento.jspa)
+- [Ficha Técnica (SRI)](https://www.sri.gob.ec/o/sri-portlet-biblioteca-alfresco-internet/descargar/435ca226-b48d-4080-bb12-bf03a54527fd/Ficha%20te%CC%81cnica%20Comprobantes%20Electro%CC%81nicos%20Esquema%20Offline%20Versio%CC%81n%202.21.pdf)

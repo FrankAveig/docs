@@ -17,18 +17,26 @@
   },
   "topbarLinks": [
     {
-      "name": "Soporte",
-      "url": "mailto:app@facturaya.app"
+      "name": "Soporte Técnico",
+      "url": "mailto:soporte@facturaya.app"
+    },
+    {
+      "name": "Ventas",
+      "url": "mailto:ventas@facturaya.app"
+    },
+    {
+      "name": "☎ +593 98 765 4321",
+      "url": "tel:+593987654321"
     }
   ],
   "topbarCtaButton": {
-    "name": "Portal",
-    "url": "https://facturaya.app"
+    "name": "Página comercial",
+    "url": "https://facturaya.app/#pricing"
   },
   "navigation": [
     {
-      "group": "Introducción",
-      "pages": ["introduction", "pricing"]
+      "group": "Bienvenida",
+      "pages": ["introduction", "pricing", "ecuador-info"]
     },
     {
       "group": "API Reference",
@@ -43,5 +51,10 @@
   "footerSocials": {
     "website": "https://facturaya.app"
   },
-  "openapi": "/api-reference/openapi.json"
+  "openapi": "/api-reference/openapi.json",
+  "i18n": {
+    "toc": {
+      "title": "En esta página"
+    }
+  }
 }

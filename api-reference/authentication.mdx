@@ -1,15 +1,59 @@
 ---
 title: "Autenticación"
-description: "Aprende cómo autenticarte con la API de FacturaYa"
+description: "Todos los endpoints de FacturaYa requieren autenticación mediante Bearer Token"
+api: "POST {endpoint}/v1/auth/token"
 ---
+
+## Autenticación en FacturaYa
+
+Todas las peticiones a la API de FacturaYa (excepto la obtención del token) deben incluir un token de autenticación en el header. El token debe ser incluido como un Bearer token en el header `Authorization`.
+
+```bash
+Authorization: Bearer <tu_token>
+```
 
 ## Obtener Token
 
 Endpoint para obtener el token de autenticación necesario para realizar peticiones a la API.
 
-### Endpoint
+### Playground
 
-<CodeGroup>```bash POST {endpoint}/v1/auth/token ```</CodeGroup>
+<RequestExample>
+  ```bash cURL
+  curl -X POST '{endpoint}/v1/auth/token' \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "client_id": 12345,
+      "client_secret": "abcde12345"
+    }'
+  ```
+
+```javascript Node.js
+const response = await fetch("{endpoint}/v1/auth/token", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    client_id: 12345,
+    client_secret: "abcde12345",
+  }),
+});
+```
+
+```python Python
+import requests
+
+response = requests.post(
+  '{endpoint}/v1/auth/token',
+  json={
+    'client_id': 12345,
+    'client_secret': 'abcde12345'
+  }
+)
+```
+
+</RequestExample>
 
 ### Parámetros del Body
 
@@ -21,18 +65,39 @@ Endpoint para obtener el token de autenticación necesario para realizar peticio
   Clave proporcionada por FacturaYa
 </ParamField>
 
-### Ejemplo de Request
+### Respuesta
 
-```json
-{
-  "client_id": 12345,
-  "client_secret": "abcde12345"
-}
-```
+<ResponseField name="estado" type="integer">
+  Código de estado de la respuesta
+</ResponseField>
 
-### Respuesta Exitosa
+<ResponseField name="noticias" type="object">
+  <Expandable title="properties">
+    <ResponseField name="titulo" type="string">
+      Título del mensaje de respuesta
+    </ResponseField>
+    <ResponseField name="mensaje" type="string">
+      Mensaje descriptivo de la respuesta
+    </ResponseField>
+  </Expandable>
+</ResponseField>
 
-```json
+<ResponseField name="data" type="object">
+  <Expandable title="properties">
+    <ResponseField name="token_type" type="string">
+      Tipo de token (siempre será "Bearer")
+    </ResponseField>
+    <ResponseField name="expires_in" type="integer">
+      Tiempo de expiración en segundos
+    </ResponseField>
+    <ResponseField name="access_token" type="string">
+      Token de acceso para las siguientes peticiones
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json Response
 {
   "estado": 200,
   "noticias": {
@@ -42,12 +107,13 @@ Endpoint para obtener el token de autenticación necesario para realizar peticio
   "data": {
     "token_type": "Bearer",
     "expires_in": 1296000,
-    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjEzMDY2..."
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1..."
   }
 }
 ```
+</ResponseExample>
 
 <Note>
   El token expira después de 15 días. Asegúrate de solicitar uno nuevo antes de
   que expire.
-</Note>{" "}
+</Note>
