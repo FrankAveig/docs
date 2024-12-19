@@ -10,7 +10,7 @@
       "url": "{endpoint}",
       "variables": {
         "endpoint": {
-          "default": "https://api.facturaya.app",
+          "default": "https://api.facturaya.dev",
           "description": "URL base de la API"
         }
       }
@@ -92,8 +92,8 @@
     },
     "/v1/m2m/documents/invoice": {
       "post": {
-        "summary": "Crear Factura",
-        "description": "Crea una nueva factura electrónica",
+        "summary": "Enviar Factura",
+        "description": "Envía una nueva factura electrónica al SRI",
         "security": [
           {
             "bearerAuth": []

@@ -18,11 +18,11 @@
   "topbarLinks": [
     {
       "name": "Soporte Técnico",
-      "url": "mailto:soporte@facturaya.app"
+      "url": "mailto:soporte@facturaya.dev"
     },
     {
       "name": "Ventas",
-      "url": "mailto:ventas@facturaya.app"
+      "url": "mailto:ventas@facturaya.dev"
     },
     {
       "name": "☎ +593 98 765 4321",
@@ -31,7 +31,7 @@
   ],
   "topbarCtaButton": {
     "name": "Página comercial",
-    "url": "https://facturaya.app/#pricing"
+    "url": "https://facturaya.dev/#pricing"
   },
   "navigation": [
     {
@@ -49,7 +49,7 @@
     }
   ],
   "footerSocials": {
-    "website": "https://facturaya.app"
+    "website": "https://facturaya.dev"
   },
   "openapi": "/api-reference/openapi.json",
   "i18n": {
