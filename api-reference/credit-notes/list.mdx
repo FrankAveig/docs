@@ -1,0 +1,137 @@
+---
+title: "Listar Notas de Crédito"
+description: "Obtener lista de notas de crédito emitidas"
+api: "GET {endpoint}/v1/m2m/credit_notes"
+---
+
+## Listar Notas de Crédito
+
+Endpoint para obtener una lista de notas de crédito emitidas en un rango de fechas.
+
+### Playground
+
+<RequestExample>
+```bash cURL
+curl -X GET 'https://api.facturaya.dev/v1/m2m/credit_notes?unique_id=cliente-123&start_date=2024-03-01&end_date=2024-03-20' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer <tu_token>'
+```
+
+```python Python
+import requests
+
+url = "https://api.facturaya.dev/v1/m2m/credit_notes"
+headers = {
+    "Accept": "application/json",
+    "Authorization": "Bearer <tu_token>"
+}
+params = {
+    "unique_id": "cliente-123",
+    "start_date": "2024-03-01",
+    "end_date": "2024-03-20"
+}
+
+response = requests.get(url, headers=headers, params=params)
+print(response.json())
+```
+
+```javascript Node.js
+const axios = require("axios");
+
+const url = "https://api.facturaya.dev/v1/m2m/credit_notes";
+const headers = {
+  Accept: "application/json",
+  Authorization: "Bearer <tu_token>",
+};
+const params = {
+  unique_id: "cliente-123",
+  start_date: "2024-03-01",
+  end_date: "2024-03-20",
+};
+
+async function listCreditNotes() {
+  try {
+    const response = await axios.get(url, { headers, params });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+listCreditNotes();
+```
+
+```php PHP
+<?php
+$url = 'https://api.facturaya.dev/v1/m2m/credit_notes';
+$params = http_build_query([
+    'unique_id' => 'cliente-123',
+    'start_date' => '2024-03-01',
+    'end_date' => '2024-03-20'
+]);
+$headers = [
+    'Accept: application/json',
+    'Authorization: Bearer <tu_token>'
+];
+
+$ch = curl_init($url . '?' . $params);
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => $headers
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+<ParamField query="start_date" type="string" required>
+  Fecha inicial del rango (YYYY-MM-DD)
+</ParamField>
+
+<ParamField query="end_date" type="string" required>
+  Fecha final del rango (YYYY-MM-DD)
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "status": 200,
+  "credit_notes": [
+    {
+      "id": "67890",
+      "customer_name": "Cliente Ejemplo SA",
+      "date": "2024-03-15",
+      "total": "56.00",
+      "status": "AUTORIZADO",
+      "invoice_ref": "001001000000123"
+    },
+    {
+      "id": "67891",
+      "customer_name": "Empresa Demo SAS",
+      "date": "2024-03-10",
+      "total": "112.00",
+      "status": "AUTORIZADO",
+      "invoice_ref": "001001000000124"
+    }
+  ]
+}
+```
+</ResponseExample>

@@ -20,11 +20,11 @@ Endpoint para obtener el token de autenticación necesario para realizar peticio
 
 <RequestExample>
   ```bash cURL
-  curl -X POST '{endpoint}/v1/auth/token' \
+  curl -X POST 'https://api.facturaya.dev/oauth/token' \
     -H 'Content-Type: application/json' \
     -d '{
-      "client_id": 12345,
-      "client_secret": "abcde12345"
+      "client_id": 98765,
+      "client_secret": "demokey123456"
     }'
   ```
 
@@ -35,8 +35,8 @@ const response = await fetch("{endpoint}/v1/auth/token", {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    client_id: 12345,
-    client_secret: "abcde12345",
+    client_id: 98765,
+    client_secret: "demokey123456",
   }),
 });
 ```
@@ -47,10 +47,31 @@ import requests
 response = requests.post(
   '{endpoint}/v1/auth/token',
   json={
-    'client_id': 12345,
-    'client_secret': 'abcde12345'
+    'client_id': 98765,
+    'client_secret': 'demokey123456'
   }
 )
+```
+
+```php PHP
+<?php
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+  CURLOPT_URL => '{endpoint}/v1/auth/token',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_POST => true,
+  CURLOPT_HTTPHEADER => [
+    'Content-Type: application/json'
+  ],
+  CURLOPT_POSTFIELDS => json_encode([
+    'client_id' => 98765,
+    'client_secret' => 'demokey123456'
+  ])
+]);
+
+$response = curl_exec($curl);
+curl_close($curl);
 ```
 
 </RequestExample>
@@ -102,12 +123,12 @@ response = requests.post(
   "estado": 200,
   "noticias": {
     "titulo": "Inicio de sesión",
-    "mensaje": "Bienvenido, nos da gusto tenerte de vuelta."
+    "mensaje": "Bienvenido al sistema"
   },
   "data": {
     "token_type": "Bearer",
-    "expires_in": 1296000,
-    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1..."
+    "expires_in": 86400,
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.demo.token"
   }
 }
 ```

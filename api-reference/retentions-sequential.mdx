@@ -1,0 +1,32 @@
+---
+title: "Consultar Secuencial de Retenciones"
+description: "Obtener siguiente número secuencial para retenciones"
+api: "GET {endpoint}/v1/m2m/retentions/sequential"
+---
+
+## Consultar Secuencial
+
+Endpoint para obtener el siguiente número secuencial disponible para retenciones.
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "status": 200,
+  "next_sequential": "001002000000006"
+}
+```
+</ResponseExample>

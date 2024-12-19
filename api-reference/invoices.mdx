@@ -46,84 +46,147 @@ Endpoint para enviar una nueva factura electrónica al SRI.
     }'
   ```
 
-```javascript Node.js
-const response = await fetch("{endpoint}/v1/m2m/documents/invoice", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer <tu_token>",
-  },
-  body: JSON.stringify({
-    invoice: {
-      products: [
-        {
-          code: "1",
-          name: "Servicios Profesionales",
-          subtotal: "1",
-          quantity: "1",
-          iva_rate_id: "2",
-          tax_percentage: "12",
-          tax_value: "0.120000",
-          hasAdditionalInformation: false,
-          hasTaxIncluded: false,
-        },
-      ],
-      customer: {
-        address: "Alborada 9na etapa",
-        email: "prueba@gmail.com",
-        identification: "1312092669",
-        identification_type: "05",
-        name: "Antonio Oramas",
-        phone: "0988359052",
-      },
-      date: "2021-12-14",
-      sequential: "001002000000002",
-      payment_method: "1",
-    },
-    unique_id: "cliente-123",
-  }),
-});
-```
+- ```javascript Node.js
 
-```python Python
-import requests
+  ```
 
-response = requests.post(
-  '{endpoint}/v1/m2m/documents/invoice',
-  headers={
-    'Authorization': 'Bearer <tu_token>'
-  },
-  json={
-    'invoice': {
-      'products': [
-        {
-          'code': '1',
-          'name': 'Servicios Profesionales',
-          'subtotal': '1',
-          'quantity': '1',
-          'iva_rate_id': '2',
-          'tax_percentage': '12',
-          'tax_value': '0.120000',
-          'hasAdditionalInformation': False,
-          'hasTaxIncluded': False
-        }
-      ],
-      'customer': {
-        'address': 'Alborada 9na etapa',
-        'email': 'prueba@gmail.com',
-        'identification': '1312092669',
-        'identification_type': '05',
-        'name': 'Antonio Oramas',
-        'phone': '0988359052'
-      },
-      'date': '2021-12-14',
-      'sequential': '001002000000002',
-      'payment_method': '1'
-    },
-    'unique_id': 'cliente-123'
-  }
-)
-```
+- const response = await fetch("{endpoint}/v1/m2m/documents/invoice", {
+- method: "POST",
+- headers: {
+-     "Content-Type": "application/json",
+-     Authorization: "Bearer <tu_token>",
+- },
+- body: JSON.stringify({
+-     invoice: {
+-       products: [
+-         {
+-           code: "1",
+-           name: "Servicios Profesionales",
+-           subtotal: "1",
+-           quantity: "1",
+-           iva_rate_id: "2",
+-           tax_percentage: "12",
+-           tax_value: "0.120000",
+-           hasAdditionalInformation: false,
+-           hasTaxIncluded: false,
+-         },
+-       ],
+-       customer: {
+-         address: "Alborada 9na etapa",
+-         email: "prueba@gmail.com",
+-         identification: "1312092669",
+-         identification_type: "05",
+-         name: "Antonio Oramas",
+-         phone: "0988359052",
+-       },
+-       date: "2021-12-14",
+-       sequential: "001002000000002",
+-       payment_method: "1",
+-     },
+-     unique_id: "cliente-123",
+- }),
+- });
+- ```
+
+  ```
+
+-
+- ```python Python
+
+  ```
+
+- import request
+
+  s
+
+-
+- response = requests.post(
+- '{endpoint}/v1/m2m/documents/invoice',
+- headers={
+-     'Authorization': 'Bearer <tu_token>'
+- },
+- json={
+-     'invoice': {
+-       'products': [
+-         {
+-           'code': '1',
+-           'name': 'Servicios Profesionales',
+-           'subtotal': '1',
+-           'quantity': '1',
+-           'iva_rate_id': '2',
+-           'tax_percentage': '12',
+-           'tax_value': '0.120000',
+-           'hasAdditionalInformation': False,
+-           'hasTaxIncluded': False
+-         }
+-       ],
+-       'customer': {
+-         'address': 'Alborada 9na etapa',
+-         'email': 'prueba@gmail.com',
+-         'identification': '1312092669',
+-         'identification_type': '05',
+-         'name': 'Antonio Oramas',
+-         'phone': '0988359052'
+-       },
+-       'date': '2021-12-14',
+-       'sequential': '001002000000002',
+-       'payment_method': '1'
+-     },
+-     'unique_id': 'cliente-123'
+- }
+- )
+- ```
+
+  ```
+
+- ```php PHP
+  <?php
+  $curl = curl_init();
+  ```
+
+curl_setopt_array($curl, [
+CURLOPT_URL => '{endpoint}/v1/m2m/documents/invoice',
+CURLOPT_RETURNTRANSFER => true,
+CURLOPT_POST => true,
+CURLOPT_HTTPHEADER => [
+'Content-Type: application/json',
+'Authorization: Bearer <tu_token>'
+],
+CURLOPT_POSTFIELDS => json_encode([
+'invoice' => [
+'products' => [
+[
+'code' => '1',
+'name' => 'Servicios Profesionales',
+'subtotal' => '1',
+'quantity' => '1',
+'iva_rate_id' => '2',
+'tax_percentage' => '12',
+'tax_value' => '0.120000',
+'hasAdditionalInformation' => false,
+'hasTaxIncluded' => false
+]
+],
+'customer' => [
+'address' => 'Alborada 9na etapa',
+'email' => 'prueba@gmail.com',
+'identification' => '1312092669',
+'identification_type' => '05',
+'name' => 'Antonio Oramas',
+'phone' => '0988359052'
+],
+'date' => '2021-12-14',
+'sequential' => '001002000000002',
+'payment_method' => '1'
+],
+'unique_id' => 'cliente-123'
+])
+]);
+
+$response = curl_exec($curl);
+curl_close($curl);
+
+````
 
 </RequestExample>
 
@@ -186,7 +249,8 @@ response = requests.post(
   },
   "data": {}
 }
-```
+````
+
 </ResponseExample>
 
 <Note>
@@ -194,3 +258,77 @@ response = requests.post(
   referencia](/api-reference/reference-tables) para los valores correctos de
   `iva_rate_id`, `identification_type` y `payment_method`.
 </Note>
+
+## Listar Facturas
+
+<CodeGroup>
+```bash
+GET {endpoint}/v1/m2m/invoices?unique_id=<unique_id>&start_date=<fecha_inicio>&end_date=<fecha_fin>
+```
+</CodeGroup>
+
+Lista las facturas emitidas en un rango de fechas.
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+<ParamField query="start_date" type="string" required>
+  Fecha inicial del rango (YYYY-MM-DD)
+</ParamField>
+
+<ParamField query="end_date" type="string" required>
+  Fecha final del rango (YYYY-MM-DD)
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+[
+  {
+    "invoice_id": "12345",
+    "customer_name": "Cliente Ejemplo",
+    "date": "2021-12-14",
+    "total": 112.00,
+    "status": "AUTORIZADO"
+  },
+  {
+    "invoice_id": "67890",
+    "customer_name": "Otro Cliente",
+    "date": "2021-12-13",
+    "total": 50.00,
+    "status": "AUTORIZADO"
+  }
+]
+```
+</ResponseExample>
+
+## Consultar Secuencial
+
+<CodeGroup>
+```bash
+GET {endpoint}/v1/m2m/invoices/sequential?unique_id=<unique_id>
+```
+</CodeGroup>
+
+Obtiene el siguiente número secuencial disponible para facturas.
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "status": 200,
+  "next_sequential": "001002000000005"
+}
+```
+</ResponseExample>

@@ -1,0 +1,252 @@
+---
+title: "Crear Nota de Débito"
+description: "Enviar una nueva nota de débito electrónica"
+api: "POST {endpoint}/v1/m2m/documents/debit_note"
+---
+
+## Enviar Nota de Débito
+
+Endpoint para enviar una nueva nota de débito al SRI.
+
+### Playground
+
+<RequestExample>
+  ```bash cURL
+  curl -X POST 'https://api.facturaya.dev/v1/m2m/documents/debit_note' \
+    -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer <tu_token>' \
+    -d '{
+      "debit_note": {
+        "products": [
+          {
+            "code": "SERV-001",
+            "name": "Cargo por Mora",
+            "subtotal": "25.00",
+            "quantity": "1",
+            "iva_rate_id": "2",
+            "tax_percentage": "12",
+            "tax_value": "3.00"
+          }
+        ],
+        "customer": {
+          "name": "Empresa Demo SAS",
+          "identification": "0987654321001",
+          "identification_type": "04",
+          "address": "Calle Comercial 456",
+          "email": "contacto@empresademo.com",
+          "phone": "0998887766"
+        },
+        "date": "2024-03-20",
+        "invoice": {
+          "date": "2024-03-01",
+          "sequential": "001001000000125"
+        },
+        "sequential": "001001000000126",
+        "reason": "Intereses por pago tardío"
+      },
+      "unique_id": "empresa-demo-001"
+    }'
+  ```
+
+```python Python
+import requests
+import json
+
+url = "https://api.facturaya.dev/v1/m2m/documents/debit_note"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer <tu_token>"
+}
+payload = {
+    "debit_note": {
+        "products": [
+            {
+                "code": "SERV-001",
+                "name": "Cargo por Mora",
+                "subtotal": "25.00",
+                "quantity": "1",
+                "iva_rate_id": "2",
+                "tax_percentage": "12",
+                "tax_value": "3.00"
+            }
+        ],
+        "customer": {
+            "name": "Empresa Demo SAS",
+            "identification": "0987654321001",
+            "identification_type": "04",
+            "address": "Calle Comercial 456",
+            "email": "contacto@empresademo.com",
+            "phone": "0998887766"
+        },
+        "date": "2024-03-20",
+        "invoice": {
+            "date": "2024-03-01",
+            "sequential": "001001000000125"
+        },
+        "sequential": "001001000000126",
+        "reason": "Intereses por pago tardío"
+    },
+    "unique_id": "empresa-demo-001"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+print(response.json())
+```
+
+```javascript Node.js
+const axios = require("axios");
+
+const url = "https://api.facturaya.dev/v1/m2m/documents/debit_note";
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: "Bearer <tu_token>",
+};
+const payload = {
+  debit_note: {
+    products: [
+      {
+        code: "SERV-001",
+        name: "Cargo por Mora",
+        subtotal: "25.00",
+        quantity: "1",
+        iva_rate_id: "2",
+        tax_percentage: "12",
+        tax_value: "3.00",
+      },
+    ],
+    customer: {
+      name: "Empresa Demo SAS",
+      identification: "0987654321001",
+      identification_type: "04",
+      address: "Calle Comercial 456",
+      email: "contacto@empresademo.com",
+      phone: "0998887766",
+    },
+    date: "2024-03-20",
+    invoice: {
+      date: "2024-03-01",
+      sequential: "001001000000125",
+    },
+    sequential: "001001000000126",
+    reason: "Intereses por pago tardío",
+  },
+  unique_id: "empresa-demo-001",
+};
+
+async function createDebitNote() {
+  try {
+    const response = await axios.post(url, payload, { headers });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+createDebitNote();
+```
+
+```php PHP
+<?php
+$url = 'https://api.facturaya.dev/v1/m2m/documents/debit_note';
+$headers = [
+    'Content-Type: application/json',
+    'Authorization: Bearer <tu_token>'
+];
+$payload = [
+    'debit_note' => [
+        'products' => [
+            [
+                'code' => 'SERV-001',
+                'name' => 'Cargo por Mora',
+                'subtotal' => '25.00',
+                'quantity' => '1',
+                'iva_rate_id' => '2',
+                'tax_percentage' => '12',
+                'tax_value' => '3.00'
+            ]
+        ],
+        'customer' => [
+            'name' => 'Empresa Demo SAS',
+            'identification' => '0987654321001',
+            'identification_type' => '04',
+            'address' => 'Calle Comercial 456',
+            'email' => 'contacto@empresademo.com',
+            'phone' => '0998887766'
+        ],
+        'date' => '2024-03-20',
+        'invoice' => [
+            'date' => '2024-03-01',
+            'sequential' => '001001000000125'
+        ],
+        'sequential' => '001001000000126',
+        'reason' => 'Intereses por pago tardío'
+    ],
+    'unique_id' => 'empresa-demo-001'
+];
+
+$ch = curl_init();
+curl_setopt_array($ch, [
+    CURLOPT_URL => $url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_HTTPHEADER => $headers,
+    CURLOPT_POSTFIELDS => json_encode($payload)
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros del Body
+
+<ParamField body="debit_note" type="object" required>
+  <Expandable title="properties">
+    <ParamField body="products" type="array" required>
+      Array de productos en la nota de débito
+    </ParamField>
+    <ParamField body="customer" type="object" required>
+      Información del cliente
+    </ParamField>
+    <ParamField body="date" type="string" required>
+      Fecha de la nota de débito (YYYY-MM-DD)
+    </ParamField>
+    <ParamField body="invoice" type="object" required>
+      Información de la factura a la que hace referencia
+    </ParamField>
+    <ParamField body="sequential" type="string" required>
+      Número secuencial de la nota de débito
+    </ParamField>
+    <ParamField body="reason" type="string" required>
+      Motivo de la nota de débito
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "estado": 200,
+  "noticias": {
+    "titulo": "Nota de débito enviada al SRI",
+    "mensaje": "Revisa el progreso de tu documento"
+  },
+  "data": {}
+}
+```
+</ResponseExample>

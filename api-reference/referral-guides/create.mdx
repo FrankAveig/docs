@@ -1,0 +1,139 @@
+---
+title: "Crear Guía de Remisión"
+description: "Enviar una nueva guía de remisión electrónica"
+api: "POST {endpoint}/v1/m2m/documents/referral_guide"
+---
+
+## Enviar Guía de Remisión
+
+Endpoint para enviar una nueva guía de remisión al SRI.
+
+### Playground
+
+<RequestExample>
+  ```bash cURL
+  curl -X POST '{endpoint}/v1/m2m/documents/referral_guide' \
+    -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer <tu_token>' \
+    -d '{
+      "referral_guide": {
+        "products": [
+          {
+            "code": "1",
+            "name": "Producto de Prueba",
+            "quantity": "10",
+            "subtotal": "100.00"
+          }
+        ],
+        "carrier": {
+          "name": "Transportes Ejemplo",
+          "identification": "0925692519",
+          "vehicle_registration_number": "ABC1234"
+        },
+        "date": "2021-12-14",
+        "receiver_address": "Av. Siempre Viva 123",
+        "receiver_business_name": "Cliente Ejemplo",
+        "receiver_identification": "1312092669",
+        "starting_address": "Bodega Central",
+        "transport_start_date": "2021-12-13",
+        "transport_end_date": "2021-12-14",
+        "reason": "Entrega de productos"
+      },
+      "unique_id": "cliente-123"
+    }'
+  ```
+
+```php PHP
+<?php
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+  CURLOPT_URL => '{endpoint}/v1/m2m/documents/referral_guide',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_POST => true,
+  CURLOPT_HTTPHEADER => [
+    'Content-Type: application/json',
+    'Authorization: Bearer <tu_token>'
+  ],
+  CURLOPT_POSTFIELDS => json_encode([
+    'referral_guide' => [
+      'products' => [
+        [
+          'code' => '1',
+          'name' => 'Producto de Prueba',
+          'quantity' => '10',
+          'subtotal' => '100.00'
+        ]
+      ],
+      'carrier' => [
+        'name' => 'Transportes Ejemplo',
+        'identification' => '0925692519',
+        'vehicle_registration_number' => 'ABC1234'
+      ],
+      'date' => '2021-12-14',
+      'receiver_address' => 'Av. Siempre Viva 123',
+      'receiver_business_name' => 'Cliente Ejemplo',
+      'receiver_identification' => '1312092669',
+      'starting_address' => 'Bodega Central',
+      'transport_start_date' => '2021-12-13',
+      'transport_end_date' => '2021-12-14',
+      'reason' => 'Entrega de productos'
+    ],
+    'unique_id' => 'cliente-123'
+  ])
+]);
+
+$response = curl_exec($curl);
+curl_close($curl);
+```
+
+</RequestExample>
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros del Body
+
+<ParamField body="referral_guide" type="object" required>
+  <Expandable title="properties">
+    <ParamField body="products" type="array" required>
+      Array de productos a transportar
+    </ParamField>
+    <ParamField body="carrier" type="object" required>
+      Información del transportista
+    </ParamField>
+    <ParamField body="date" type="string" required>
+      Fecha de emisión (YYYY-MM-DD)
+    </ParamField>
+    <ParamField body="transport_start_date" type="string" required>
+      Fecha de inicio del transporte
+    </ParamField>
+    <ParamField body="transport_end_date" type="string" required>
+      Fecha de fin del transporte
+    </ParamField>
+    <ParamField body="receiver_business_name" type="string" required>
+      Nombre del destinatario
+    </ParamField>
+    <ParamField body="receiver_identification" type="string" required>
+      Identificación del destinatario
+    </ParamField>
+    <ParamField body="receiver_address" type="string" required>
+      Dirección de entrega
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "status": 200,
+  "message": "Guía de remisión creada exitosamente",
+  "referral_guide_id": "12345"
+}
+```
+</ResponseExample>

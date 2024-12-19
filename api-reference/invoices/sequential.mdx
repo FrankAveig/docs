@@ -1,0 +1,106 @@
+---
+title: "Consultar Secuencial"
+description: "Obtener siguiente número secuencial para facturas"
+api: "GET {endpoint}/v1/m2m/invoices/sequential"
+---
+
+## Consultar Secuencial
+
+Endpoint para obtener el siguiente número secuencial disponible para facturas.
+
+### Playground
+
+<RequestExample>
+```bash cURL
+curl -X GET 'https://api.facturaya.dev/v1/m2m/invoices/sequential?unique_id=cliente-123' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer <tu_token>'
+```
+
+```python Python
+import requests
+
+url = "https://api.facturaya.dev/v1/m2m/invoices/sequential"
+headers = {
+    "Accept": "application/json",
+    "Authorization": "Bearer <tu_token>"
+}
+params = {
+    "unique_id": "cliente-123"
+}
+
+response = requests.get(url, headers=headers, params=params)
+print(response.json())
+```
+
+```javascript Node.js
+const axios = require("axios");
+
+const url = "https://api.facturaya.dev/v1/m2m/invoices/sequential";
+const headers = {
+  Accept: "application/json",
+  Authorization: "Bearer <tu_token>",
+};
+const params = {
+  unique_id: "cliente-123",
+};
+
+async function getSequential() {
+  try {
+    const response = await axios.get(url, { headers, params });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getSequential();
+```
+
+```php PHP
+<?php
+$url = 'https://api.facturaya.dev/v1/m2m/invoices/sequential';
+$params = http_build_query([
+    'unique_id' => 'cliente-123'
+]);
+$headers = [
+    'Accept: application/json',
+    'Authorization: Bearer <tu_token>'
+];
+
+$ch = curl_init($url . '?' . $params);
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => $headers
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "status": 200,
+  "next_sequential": "001002000000005"
+}
+```
+</ResponseExample>

@@ -17,16 +17,12 @@
   },
   "topbarLinks": [
     {
-      "name": "Soporte Técnico",
-      "url": "mailto:soporte@facturaya.dev"
+      "name": "Soporte Técnico : +593 98 835 9052",
+      "url": "/soporte.html"
     },
     {
-      "name": "Ventas",
-      "url": "mailto:ventas@facturaya.dev"
-    },
-    {
-      "name": "☎ +593 98 765 4321",
-      "url": "tel:+593987654321"
+      "name": "Ventas : +593 99 856 7167",
+      "url": "/ventas.html"
     }
   ],
   "topbarCtaButton": {
@@ -43,7 +39,44 @@
       "pages": [
         "api-reference/introduction",
         "api-reference/authentication",
-        "api-reference/invoices",
+        {
+          "group": "Facturas",
+          "pages": [
+            "api-reference/invoices/create",
+            "api-reference/invoices/list",
+            "api-reference/invoices/sequential"
+          ]
+        },
+        {
+          "group": "Notas de Crédito",
+          "pages": [
+            "api-reference/credit-notes/create",
+            "api-reference/credit-notes/list",
+            "api-reference/credit-notes/sequential"
+          ]
+        },
+        {
+          "group": "Notas de Débito",
+          "pages": [
+            "api-reference/debit-notes/create",
+            "api-reference/debit-notes/list",
+            "api-reference/debit-notes/sequential"
+          ]
+        },
+        {
+          "group": "Guías de Remisión",
+          "pages": [
+            "api-reference/referral-guides/list",
+            "api-reference/referral-guides/sequential"
+          ]
+        },
+        {
+          "group": "Retenciones",
+          "pages": [
+            "api-reference/retentions/list",
+            "api-reference/retentions/sequential"
+          ]
+        },
         "api-reference/reference-tables"
       ]
     }

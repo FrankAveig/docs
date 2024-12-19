@@ -1,0 +1,86 @@
+---
+title: "Guías de Remisión"
+description: "Endpoints para consultar guías de remisión"
+---
+
+## Listar Guías de Remisión
+
+<CodeGroup>
+```bash
+GET {endpoint}/v1/m2m/referral_guides?unique_id=<unique_id>&start_date=<fecha_inicio>&end_date=<fecha_fin>
+```
+</CodeGroup>
+
+Endpoint para obtener una lista de guías de remisión emitidas en un rango de fechas.
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+<ParamField query="start_date" type="string" required>
+  Fecha inicial del rango (YYYY-MM-DD)
+</ParamField>
+
+<ParamField query="end_date" type="string" required>
+  Fecha final del rango (YYYY-MM-DD)
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "status": 200,
+  "referral_guides": [
+    {
+      "id": "12345",
+      "receiver_business_name": "Cliente Ejemplo",
+      "date": "2021-12-14",
+      "starting_address": "Bodega Central",
+      "transport_end_date": "2021-12-14"
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Consultar Secuencial
+
+<CodeGroup>
+```bash
+GET {endpoint}/v1/m2m/referral_guides/sequential?unique_id=<unique_id>
+```
+</CodeGroup>
+
+Endpoint para obtener el siguiente número secuencial disponible para guías de remisión.
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+{
+  "status": 200,
+  "next_sequential": "001002000000005"
+}
+```
+</ResponseExample>

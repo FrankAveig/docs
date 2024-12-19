@@ -1,0 +1,192 @@
+---
+title: "Retenciones"
+description: "Endpoints para la gestión de comprobantes de retención"
+api: "POST {endpoint}/v1/m2m/documents/retention"
+---
+
+## Enviar Retención
+
+Endpoint para enviar un nuevo comprobante de retención al SRI.
+
+### Playground
+
+<RequestExample>
+  ```bash cURL
+  curl -X POST '{endpoint}/v1/m2m/documents/retention' \
+    -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer <tu_token>' \
+    -d '{
+      "retention": {
+        "additional_information_detail": [],
+        "retentions": [
+          {
+            "base": "2",
+            "retention_type": {
+              "code": "9",
+              "description": "10%",
+              "id": "1",
+              "total": "10",
+              "type": "iva"
+            },
+            "total": "0.20"
+          }
+        ],
+        "date": "2021-12-14",
+        "invoice": {
+          "date": "2021-12-14",
+          "sequential": "123849464646464"
+        },
+        "sequential": "001002000000001",
+        "provider": {
+          "address": "Bonaterra",
+          "email": "proveedor@ejemplo.com",
+          "identification": "0925692519",
+          "identification_type": "05",
+          "name": "Proveedor Ejemplo",
+          "phone": "0988359052"
+        }
+      },
+      "unique_id": "cliente-123"
+    }'
+  ```
+
+```php PHP
+<?php
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+  CURLOPT_URL => '{endpoint}/v1/m2m/documents/retention',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_POST => true,
+  CURLOPT_HTTPHEADER => [
+    'Content-Type: application/json',
+    'Authorization: Bearer <tu_token>'
+  ],
+  CURLOPT_POSTFIELDS => json_encode([
+    'retention' => [
+      'retentions' => [
+        [
+          'base' => '2',
+          'retention_type' => [
+            'code' => '9',
+            'description' => '10%',
+            'id' => '1',
+            'total' => '10',
+            'type' => 'iva'
+          ],
+          'total' => '0.20'
+        ]
+      ],
+      'date' => '2021-12-14',
+      'invoice' => [
+        'date' => '2021-12-14',
+        'sequential' => '123849464646464'
+      ],
+      'sequential' => '001002000000001',
+      'provider' => [
+        'address' => 'Bonaterra',
+        'email' => 'proveedor@ejemplo.com',
+        'identification' => '0925692519',
+        'identification_type' => '05',
+        'name' => 'Proveedor Ejemplo',
+        'phone' => '0988359052'
+      ]
+    ],
+    'unique_id' => 'cliente-123'
+  ])
+]);
+
+$response = curl_exec($curl);
+curl_close($curl);
+```
+
+</RequestExample>
+
+### Headers Requeridos
+
+<ParamField header="Authorization" type="string" required>
+  Bearer {token}
+</ParamField>
+
+### Parámetros del Body
+
+<ParamField body="retention" type="object" required>
+  <Expandable title="properties">
+    <ParamField body="retentions" type="array" required>
+      Array de retenciones aplicadas
+    </ParamField>
+    <ParamField body="provider" type="object" required>
+      Información del proveedor
+    </ParamField>
+    <ParamField body="date" type="string" required>
+      Fecha de emisión (YYYY-MM-DD)
+    </ParamField>
+    <ParamField body="invoice" type="object" required>
+      Información de la factura relacionada
+    </ParamField>
+    <ParamField body="sequential" type="string" required>
+      Número secuencial del comprobante
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+## Consultar Secuencial
+
+<CodeGroup>
+```bash
+GET {endpoint}/v1/m2m/retentions/sequential?unique_id=<unique_id>
+```
+</CodeGroup>
+
+Obtiene el siguiente número secuencial disponible para comprobantes de retención.
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+## Listar Retenciones
+
+<CodeGroup>
+```bash
+GET {endpoint}/v1/m2m/retentions?unique_id=<unique_id>&start_date=<fecha_inicio>&end_date=<fecha_fin>
+```
+</CodeGroup>
+
+Lista los comprobantes de retención emitidos en un rango de fechas.
+
+### Parámetros de Consulta
+
+<ParamField query="unique_id" type="string" required>
+  Identificador único del cliente
+</ParamField>
+
+<ParamField query="start_date" type="string" required>
+  Fecha inicial del rango (YYYY-MM-DD)
+</ParamField>
+
+<ParamField query="end_date" type="string" required>
+  Fecha final del rango (YYYY-MM-DD)
+</ParamField>
+
+### Ejemplo de Respuesta
+
+<ResponseExample>
+```json Response
+[
+  {
+    "retention_id": "12345",
+    "provider_name": "Proveedor Ejemplo",
+    "date": "2021-12-14",
+    "status": "AUTORIZADO",
+    "total_retained": "0.20",
+    "invoice_ref": "123849464646464"
+  }
+]
+```
+</ResponseExample>
